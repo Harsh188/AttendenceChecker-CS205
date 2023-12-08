@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  dev:
+    # Will build ./docker/Dockerfile-GPU
+    # This Dockerfile is for GPU based development
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-GPU
+    volumes:
+      - ./:/AttendenceChecker
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia 
+              device_ids: ['0']
+              capabilities: [gpu]
